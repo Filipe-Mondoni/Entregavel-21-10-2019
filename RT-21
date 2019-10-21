@@ -1,0 +1,53 @@
+enable
+configure terminal
+hostname RT-21
+banner motd "ACESSO APENAS PARA O DEPARTAMENTO DE TI"
+enable secret SenhaEnable
+line console 0
+password SenhadaConsole
+login
+exit
+line vty 0 15
+password SenhadaVTY
+login
+transport input ssh
+login local
+exec-timeout 5
+exit
+service password-encryption
+interface gigabitEthernet 0/0
+ip address 172.16.2.0 255.255.252.0
+description REDE 172.16.2.0/23
+no shutdown
+exit
+ip domain-name filipe.host
+username Filipe privilege 15 secret CasaTully
+username Pedro privilege 15 secret CasaTully
+username Kaue privilege 15 secret CasaTully
+username Vinicius privilege 15 secret CasaTully
+crypto key generate rsa general-keys modulus 1024
+interface gigabitethernet 0/1
+no shutdown
+description CONEXAO COM SWITCH-CORE
+exit
+interface gigabitethernet 0/1.10
+encapsulation dot1q 10
+ip address 172.16.2.0 255.255.254.0
+description SUBINTERFACE-VLAN10/REDE1
+exit
+interface gigabitethernet 0/1.20
+encapsulation dot1q 20
+ip address 172.16.2.0 255.255.254.0
+description SUBINTERFACE VLAN20/REDE1
+exit
+interface gigabitethernet 0/1.99
+encapsulation dot1q 99
+description SUBINTERFACE-VLAN99/NATIVA
+exit
+interface gigabitethernet 0/1.100
+encapsulation dot1q 100
+description SUBINTERFACE-VLAN100/GERENCIAMENTO
+exit
+interface Se0/0/0
+ip route 172.16.2.0 255.255.254.0 200.18.189.0
+do wr
