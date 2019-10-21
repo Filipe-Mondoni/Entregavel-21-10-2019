@@ -49,5 +49,5 @@ encapsulation dot1q 100
 description SUBINTERFACE-VLAN100/GERENCIAMENTO
 exit
 interface Se0/0/0
-ip route 172.16.2.0 255.255.254.0 200.18.189.0
+ip route 172.16.2.0 255.255.254.0 200.18.189.2/30
 do wr
