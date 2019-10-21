@@ -1,0 +1,50 @@
+enable
+configure terminal
+hostname SW-11
+banner motd "ACESSO AUTORIZADO APENAS PARA O DEPARTAMENTO DE TI!"
+enable secret SenhadaEnable
+line console 0
+password SenhadaConsole
+login
+exit
+ip domain-name filipe.host
+username Filipe privilege 15 secret CasaTully
+username Pedro privilege 15 secret CasaTully
+username Kaue privilege 15 secret CasaTully
+username Vinicius privilege 15 secret CasaTully
+crypto key generate rsa general-keys modulus 1024
+line vty 0 15
+transport input ssh
+login local
+exec-timeout 10
+service password-encryption
+line vty 0 15
+password SenhadaVTY
+login
+exit
+interface vlan 100
+ip address 172.16.1.254 255.255.252.0
+description INTERFACE DE GERENCIAMENTO
+no shutdown
+exit
+interface fastEthernet 0/1
+switchport mode access
+switchport access vlan 10
+description PC-11
+interface fastEthernet 0/2
+switchport mode access
+switchport access vlan 20
+description PC-12
+interface fastEthernet 0/24
+switchport mode access
+switchport access vlan 100
+ip default-gateway 172.16.0.0
+interface gigaEthernet0/1
+ip add 172.16.1.141 255.255.255.240
+no shut
+exit
+interface gigaEthernet1/1
+ip add 172.16.1.140 255.255.255.240
+no shut
+exit
+do wr
