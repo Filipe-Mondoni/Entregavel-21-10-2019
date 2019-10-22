@@ -1,6 +1,6 @@
 enable
 configure terminal
-hostname SW-INTERMEDIARIO-20
+hostname SW-INTERMEDIARIO-21
 banner motd "ACESSO AUTORIZADO APENAS PARA O DEPARTAMENTO DE TI!"
 enable secret SenhadaEnable
 line console 0
